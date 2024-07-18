@@ -17,22 +17,27 @@ def main():
         
         choice = input("Chọn tùy chọn: ")
         
+        operator = manage()
         if choice == '1':
             name = input("Nhập tên học sinh: ")
             lop = input("Nhập lớp: ")
             birth = input("Nhập năm sinh: ")
+            operator.AddStudent(name, lop, birth)
         
         elif choice == '2':
             name = input('Nhập tên học sinh: ')
             birth = input('Nhập năm sinh: ')
+            index = operator.Check(operator.student, name, birth)
             if index == -1:
                 print('Không có học sinh này trong lớp')
             else:
+                    operator.RemoveStudent(name, birth, lop)
 
         elif choice == '3':
             name = input("Nhập tên học sinh: ")
             lop = input("Nhập lớp: ")
             birth = input('Năm sinh: ')
+            index = operator.Check(operator.student, birth, lop)
             if index == -1:
                 print('Không có học sinh này trong lớp')
             else:
@@ -42,10 +47,13 @@ def main():
                         break
                     elif key == 'lớp':
                         new_value = input('Nhập lớp cần cập nhật: ')
+                        operator.student[index].lop = new_value
                     elif key == 'năm sinh':
                         new_value = input('Nhập năm sinh cần cập nhật: ')
+                        operator.student[index].birth = new_value
                     else:
                         new_value = input(f'Nhập giá trị mới cho {key}: ')
+                        operator.student[index].details[key] = new_value
                     print('Thông tin học sinh đã được cập nhật')
         
         elif choice == '4':
@@ -53,17 +61,21 @@ def main():
             subj = input("Nhập môn học: ")
             lop = input("Nhập lớp: ")
             birth = input("Nhập năm sinh: ")
+            operator.AddTeacher(name, subj, lop, birth)
 
         elif choice == '5':
             name = input('Nhập tên giáo viên: ')
             birth = input('Nhập năm sinh: ')
+            index = operator.Check(operator.teacher, name, birth)
             if index == -1:
                 print('Không có giáo viên này trong lớp')
             else:
+                    operator.RemoveTeacher(name, birth, lop)
 
         elif choice == '6':
             name = input('Nhập tên giáo viên: ')
             birth = input('Nhập năm sinh: ')
+            index = operator.Check(operator.teacher, name, birth)
             if index == -1:
                 print('Không có giáo viên này trong lớp')
             else:
@@ -73,19 +85,24 @@ def main():
                         break
                     elif key == 'lớp':
                         new_value = input('Nhập lớp cần cập nhật: ')
+                        operator.teacher[index].lop = new_value
                     elif key == 'năm sinh':
                         new_value = input('Nhập năm sinh cần cập nhật: ')
+                        operator.teacher[index].birth = new_value
                     else:
                         new_value = input(f'Nhập giá trị mới cho {key}: ')
+                        operator.teacher[index].details[key] = new_value
                     print('Thông tin giáo viên đã được cập nhật')
 
         elif choice == '7':
             name = input('Nhập tên lớp: ')
             khoa = input('Nhập khóa: ')
+            operator.AddClass(name, khoa)
 
         elif choice == '8':
             name = input('Xóa lớp: ')
             khoa = input('Nhập khóa: ')
+            operator.RemoveClass(name, khoa)
         
         elif choice == '9':
             print("Thoát chương trình")
